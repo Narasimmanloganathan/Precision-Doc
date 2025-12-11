@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrecisionDocs | Technical Writing Services</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 76px; /* For fixed navbar */
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--secondary-color) !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a6491 100%);
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .product-card {
+            height: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .contact-info {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .page-content {
+            min-height: 60vh;
+        }
+        
+        /* Active page styling */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Back to top button */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-pencil-square me-2"></i>PrecisionDocs
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showPage('home')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('services')">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('products')">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('contact')">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="btn btn-primary rounded-circle" onclick="scrollToTop()">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Page Content -->
+    <main class="page-content">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="display-4 fw-bold mb-4">Transforming Complex Ideas into Clear Documentation</h1>
+                            <p class="lead mb-4">Professional technical writing services for software, APIs, user guides, and technical documentation that communicates effectively with your audience.</p>
+                            <a href="#" class="btn btn-light btn-lg me-3" onclick="showPage('services')">Our Services</a>
+                            <a href="#" class="btn btn-outline-light btn-lg" onclick="showPage('contact')">Get a Quote</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&h=500&q=80" 
+                                 class="img-fluid rounded shadow" alt="Technical Writing">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center p-4">
+                                <i class="bi bi-file-text-fill service-icon"></i>
+                                <h3>API Documentation</h3>
+                                <p>Clear, comprehensive API documentation that helps developers integrate with your platform quickly and efficiently.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center p-4">
+                                <i class="bi bi-laptop service-icon"></i>
+                                <h3>User Manuals & Guides</h3>
+                                <p>User-friendly documentation that empowers your customers to get the most from your products and services.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center p-4">
+                                <i class="bi bi-diagram-3 service-icon"></i>
+                                <h3>Process Documentation</h3>
+                                <p>Detailed process and workflow documentation that ensures consistency and knowledge transfer within your organization.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="py-5 bg-light">
+                <div class="container">
+                    <h2 class="section-title text-center">Why Choose PrecisionDocs?</h2>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p>With over 10+ years of experience in technical communication, we specialize in transforming complex technical information into clear, accessible, and user-focused documentation.</p>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Industry-specific expertise</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Agile documentation processes</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Tools like MadCap Flare, Snagit, ArborText Editor and Markdown</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> SEO-optimized online help systems</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Multilingual documentation capabilities</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Our Clients</h4>
+                                    <p>We've worked with startups, enterprise companies, and everything in between across various industries:</p>
+                                    <div class="row text-center">
+                                        <div class="col-4 mb-3">
+                                            <div class="p-3 border rounded">
+                                                <i class="bi bi-cpu-fill h3 text-primary"></i>
+                                                <p class="mb-0">Tech</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 mb-3">
+                                            <div class="p-3 border rounded">
+                                                <i class="bi bi-heart-pulse-fill h3 text-danger"></i>
+                                                <p class="mb-0">Healthcare</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 mb-3">
+                                            <div class="p-3 border rounded">
+                                                <i class="bi bi-bank h3 text-success"></i>
+                                                <p class="mb-0">Finance</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Services Page -->
+        <div id="services" class="page">
+            <div class="container py-5">
+                <h1 class="section-title">Our Services</h1>
+                <p class="lead mb-5">We offer comprehensive technical writing solutions tailored to your specific needs.</p>
+                
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-center mb-3">
+                                    <i class="bi bi-code-slash service-icon"></i>
+                                </div>
+                                <h3 class="card-title">API Documentation</h3>
+                                <p class="card-text">Complete REST API documentation including endpoint references, authentication guides, code samples, and SDK documentation.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check me-2 text-primary"></i>OpenAPI/Swagger integration</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Interactive API explorers</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>SDK documentation in multiple languages</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-center mb-3">
+                                    <i class="bi bi-people-fill service-icon"></i>
+                                </div>
+                                <h3 class="card-title">User Documentation</h3>
+                                <p class="card-text">End-user focused documentation including getting started guides, tutorials, FAQs, and comprehensive user manuals.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Context-sensitive help systems</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Video tutorials and screencasts</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Knowledge base development</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-center mb-3">
+                                    <i class="bi bi-shield-check service-icon"></i>
+                                </div>
+                                <h3 class="card-title">Compliance & Security Docs</h3>
+                                <p class="card-text">Documentation for regulatory compliance, security policies, data handling procedures, and audit requirements.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check me-2 text-primary"></i>GDPR, HIPAA, SOC2 documentation</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Security policy development</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Compliance audit preparation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-center mb-3">
+                                    <i class="bi bi-diagram-3-fill service-icon"></i>
+                                </div>
+                                <h3 class="card-title">Process Documentation</h3>
+                                <p class="card-text">Internal documentation including SOPs, workflows, knowledge bases, and training materials for your team.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Standard Operating Procedures</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Workflow and process mapping</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Internal knowledge bases</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-center mb-3">
+                                    <i class="bi bi-translate service-icon"></i>
+                                </div>
+                                <h3 class="card-title">Localization</h3>
+                                <p class="card-text">Translation and localization of technical documentation for global audiences with cultural adaptation.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Multilingual documentation</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Cultural adaptation</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Translation memory management</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-center mb-3">
+                                    <i class="bi bi-search service-icon"></i>
+                                </div>
+                                <h3 class="card-title">Documentation Audit</h3>
+                                <p class="card-text">Comprehensive review of existing documentation with recommendations for improvement and optimization.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Gap analysis</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>SEO and usability review</li>
+                                    <li><i class="bi bi-check me-2 text-primary"></i>Migration planning</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Page -->
+        <div id="products" class="page">
+            <div class="container py-5">
+                <h1 class="section-title">Our Products</h1>
+                <p class="lead mb-5">Ready-to-use documentation templates and tools to accelerate your documentation process.</p>
+                
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card product-card">
+                            <div class="card-body">
+                                <span class="badge bg-success float-end">$89</span>
+                                <h3 class="card-title">API Doc Template Pack</h3>
+                                <p class="text-muted">Complete set of templates for REST API documentation</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>OpenAPI/Swagger templates</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Authentication guide templates</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Error code reference templates</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>SDK documentation templates</li>
+                                </ul>
+                                <div class="d-grid">
+                                    <button class="btn btn-primary">Purchase Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card product-card">
+                            <div class="card-body">
+                                <span class="badge bg-success float-end">$149</span>
+                                <h3 class="card-title">Technical Writing Style Guide</h3>
+                                <p class="text-muted">Comprehensive style guide for consistent technical documentation</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Voice and tone guidelines</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Grammar and punctuation rules</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Formatting standards</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Inclusive language guidelines</li>
+                                </ul>
+                                <div class="d-grid">
+                                    <button class="btn btn-primary">Purchase Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card product-card">
+                            <div class="card-body">
+                                <span class="badge bg-success float-end">$199</span>
+                                <h3 class="card-title">Documentation Planning Toolkit</h3>
+                                <p class="text-muted">Tools and templates for planning and managing documentation projects</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Documentation project plan template</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Content audit spreadsheet</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>User persona templates</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Review and approval workflows</li>
+                                </ul>
+                                <div class="d-grid">
+                                    <button class="btn btn-primary">Purchase Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Free Resources</h3>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="bi bi-file-earmark-text-fill text-primary fs-4 me-3"></i>
+                                            <div>
+                                                <h5>Documentation Checklist</h5>
+                                                <p class="small">Essential items to include in every technical document</p>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">Download</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="bi bi-card-checklist text-primary fs-4 me-3"></i>
+                                            <div>
+                                                <h5>SEO for Docs Guide</h5>
+                                                <p class="small">Optimize your documentation for search engines</p>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">Download</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="bi bi-bar-chart-line text-primary fs-4 me-3"></i>
+                                            <div>
+                                                <h5>Documentation Metrics</h5>
+                                                <p class="small">Track and measure documentation success</p>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">Download</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page">
+            <div class="container py-5">
+                <h1 class="section-title">Contact Us</h1>
+                <p class="lead mb-5">Get in touch to discuss your documentation needs or request a quote.</p>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title mb-4">Send us a message</h3>
+                                <form id="contactForm">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="name" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="name" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email" class="form-label">Email Address</label>
+                                            <input type="email" class="form-control" id="email" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="company" class="form-label">Company</label>
+                                        <input type="text" class="form-control" id="company">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="service" class="form-label">Service Interested In</label>
+                                        <select class="form-select" id="service">
+                                            <option selected>Select a service</option>
+                                            <option value="api">API Documentation</option>
+                                            <option value="user">User Documentation</option>
+                                            <option value="compliance">Compliance Documentation</option>
+                                            <option value="process">Process Documentation</option>
+                                            <option value="localization">Localization</option>
+                                            <option value="audit">Documentation Audit</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message" class="form-label">Message</label>
+                                        <textarea class="form-control" id="message" rows="5" required></textarea>
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="newsletter">
+                                        <label class="form-check-label" for="newsletter">Subscribe to our newsletter</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 mt-4 mt-lg-0">
+                        <div class="contact-info">
+                            <h3 class="mb-4">Contact Information</h3>
+                            <div class="mb-4">
+                                <h5><i class="bi bi-geo-alt-fill me-2"></i>Address</h5>
+                                <p>HAL Main Gate, Annasandrapalya<br>whitefield, Bangalore<br>India</p>
+                            </div>
+                            <div class="mb-4">
+                                <h5><i class="bi bi-telephone-fill me-2"></i>Phone</h5>
+                                <p>+91 9686115370</p>
+                            </div>
+                            <div class="mb-4">
+                                <h5><i class="bi bi-envelope-fill me-2"></i>Email</h5>
+                                <p>narasimman161994@gmail.com</p>
+                            </div>
+                            <div class="mb-4">
+                                <h5><i class="bi bi-clock-fill me-2"></i>Business Hours</h5>
+                                <p>Monday - Friday: 9am - 6pm PST<br>Saturday - Sunday: Closed</p>
+                            </div>
+                            <div>
+                                <h5>Follow Us</h5>
+                                <div class="social-icons">
+                                    <a href="#"><i class="bi bi-twitter"></i></a>
+                                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                                    <a href="#"><i class="bi bi-github"></i></a>
+                                    <a href="#"><i class="bi bi-youtube"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="mb-3"><i class="bi bi-pencil-square me-2"></i>PrecisionDocs</h3>
+                    <p>Professional technical writing services that transform complex information into clear, accessible documentation.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none" onclick="showPage('home')">Home</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none" onclick="showPage('services')">Services</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none" onclick="showPage('products')">Products</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none" onclick="showPage('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">API Documentation</li>
+                        <li class="mb-2">User Manuals</li>
+                        <li class="mb-2">Process Documentation</li>
+                        <li class="mb-2">Localization</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5 class="mb-3">Newsletter</h5>
+                    <p>Subscribe for documentation tips and updates.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p>&copy; 2023 PrecisionDocs. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-light text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Single-page application navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find and activate the correct nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('onclick') === `showPage('${pageId}')`) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            return false;
+        }
+
+        // Back to top button
+        window.onscroll = function() {
+            const backToTopButton = document.getElementById('backToTop');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+</body>
+</html>
