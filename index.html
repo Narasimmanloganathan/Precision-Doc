@@ -125,6 +125,161 @@
             display: none;
             z-index: 1000;
         }
+
+        /* Chat widget */
+        #chatToggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            font-size: 1.6rem;
+            z-index: 1040;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        #chatToggle:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        #backToTop {
+            right: 100px;
+        }
+        #chatWindow {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 360px;
+            max-width: calc(100vw - 40px);
+            height: 520px;
+            max-height: calc(100vh - 140px);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1041;
+            font-family: inherit;
+        }
+        #chatWindow.open { display: flex; }
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4a6491 100%);
+            color: white;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .chat-header h5 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .chat-header .chat-sub {
+            font-size: 0.75rem;
+            opacity: 0.85;
+        }
+        .chat-close {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+        }
+        #chatMessages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background-color: #f5f7fa;
+        }
+        .chat-msg {
+            margin-bottom: 10px;
+            display: flex;
+        }
+        .chat-msg.user { justify-content: flex-end; }
+        .chat-msg .bubble {
+            max-width: 85%;
+            padding: 10px 12px;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .chat-msg.user .bubble {
+            background-color: var(--secondary-color);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-msg.assistant .bubble {
+            background-color: white;
+            color: var(--dark-color);
+            border: 1px solid #e4e8ee;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-msg .bubble .cursor {
+            display: inline-block;
+            width: 6px;
+            height: 14px;
+            background: var(--secondary-color);
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: chatBlink 1s steps(2) infinite;
+        }
+        @keyframes chatBlink { 50% { opacity: 0; } }
+        .chat-input-area {
+            border-top: 1px solid #e4e8ee;
+            padding: 10px;
+            background: white;
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+        #chatInput {
+            flex: 1;
+            resize: none;
+            border: 1px solid #d4dae2;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            max-height: 120px;
+            outline: none;
+        }
+        #chatInput:focus { border-color: var(--secondary-color); }
+        #chatSend {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        #chatSend:disabled { opacity: 0.5; cursor: not-allowed; }
+        @media (max-width: 480px) {
+            #chatWindow {
+                right: 10px;
+                left: 10px;
+                width: auto;
+                bottom: 90px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -616,6 +771,27 @@
         </div>
     </footer>
 
+    <!-- Chat Widget -->
+    <button id="chatToggle" aria-label="Open chat" title="Chat with us">
+        <i class="bi bi-chat-dots-fill"></i>
+    </button>
+    <div id="chatWindow" role="dialog" aria-label="PrecisionDocs chat">
+        <div class="chat-header">
+            <div>
+                <h5>PrecisionDocs Assistant</h5>
+                <div class="chat-sub">Ask about our services or contact details</div>
+            </div>
+            <button class="chat-close" id="chatCloseBtn" aria-label="Close chat">&times;</button>
+        </div>
+        <div id="chatMessages" aria-live="polite"></div>
+        <form class="chat-input-area" id="chatForm">
+            <textarea id="chatInput" rows="1" placeholder="Type a message…" aria-label="Message"></textarea>
+            <button type="submit" id="chatSend" aria-label="Send message">
+                <i class="bi bi-send-fill"></i>
+            </button>
+        </form>
+    </div>
+
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -676,6 +852,135 @@
                 return new bootstrap.Tooltip(tooltipTriggerEl);
             });
         });
+
+        // Chat widget
+        (function() {
+            const toggleBtn = document.getElementById('chatToggle');
+            const windowEl = document.getElementById('chatWindow');
+            const closeBtn = document.getElementById('chatCloseBtn');
+            const messagesEl = document.getElementById('chatMessages');
+            const form = document.getElementById('chatForm');
+            const input = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('chatSend');
+
+            const history = [];
+            let firstOpen = true;
+            let sending = false;
+
+            function openChat() {
+                windowEl.classList.add('open');
+                toggleBtn.setAttribute('aria-label', 'Close chat');
+                if (firstOpen) {
+                    firstOpen = false;
+                    addMessage('assistant', "Hi! I'm the PrecisionDocs assistant. Ask me about our services, pricing, or how to get in touch.");
+                }
+                setTimeout(() => input.focus(), 50);
+            }
+            function closeChat() {
+                windowEl.classList.remove('open');
+                toggleBtn.setAttribute('aria-label', 'Open chat');
+            }
+            toggleBtn.addEventListener('click', () => {
+                windowEl.classList.contains('open') ? closeChat() : openChat();
+            });
+            closeBtn.addEventListener('click', closeChat);
+
+            function addMessage(role, content) {
+                const wrap = document.createElement('div');
+                wrap.className = 'chat-msg ' + role;
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.textContent = content;
+                wrap.appendChild(bubble);
+                messagesEl.appendChild(wrap);
+                messagesEl.scrollTop = messagesEl.scrollHeight;
+                return bubble;
+            }
+
+            function autoresize() {
+                input.style.height = 'auto';
+                input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+            }
+            input.addEventListener('input', autoresize);
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    form.requestSubmit();
+                }
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (sending) return;
+                const text = input.value.trim();
+                if (!text) return;
+
+                sending = true;
+                sendBtn.disabled = true;
+                addMessage('user', text);
+                history.push({ role: 'user', content: text });
+                input.value = '';
+                autoresize();
+
+                const bubble = addMessage('assistant', '');
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor';
+                bubble.appendChild(cursor);
+
+                let assistantText = '';
+                try {
+                    const res = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ messages: history }),
+                    });
+                    if (!res.ok || !res.body) throw new Error('Request failed: ' + res.status);
+
+                    const reader = res.body.getReader();
+                    const decoder = new TextDecoder();
+                    let buffer = '';
+
+                    while (true) {
+                        const { value, done } = await reader.read();
+                        if (done) break;
+                        buffer += decoder.decode(value, { stream: true });
+                        const parts = buffer.split('\n\n');
+                        buffer = parts.pop() || '';
+                        for (const part of parts) {
+                            const line = part.trim();
+                            if (!line.startsWith('data:')) continue;
+                            const data = line.slice(5).trim();
+                            if (data === '[DONE]') continue;
+                            try {
+                                const parsed = JSON.parse(data);
+                                if (parsed.error) throw new Error(parsed.error);
+                                if (parsed.delta) {
+                                    assistantText += parsed.delta;
+                                    bubble.textContent = assistantText;
+                                    bubble.appendChild(cursor);
+                                    messagesEl.scrollTop = messagesEl.scrollHeight;
+                                }
+                            } catch (err) {
+                                // ignore malformed chunk
+                            }
+                        }
+                    }
+                    cursor.remove();
+                    if (!assistantText) {
+                        bubble.textContent = "Sorry, I didn't catch that. Please try again.";
+                    } else {
+                        history.push({ role: 'assistant', content: assistantText });
+                    }
+                } catch (err) {
+                    cursor.remove();
+                    bubble.textContent = "Sorry, something went wrong. Please try again, or email narasimman161994@gmail.com.";
+                } finally {
+                    sending = false;
+                    sendBtn.disabled = false;
+                    input.focus();
+                }
+            });
+        })();
     </script>
 </body>
 </html>

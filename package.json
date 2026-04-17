@@ -1,0 +1,9 @@
+{
+  "name": "precision-documentation-web",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@netlify/functions": "^2.8.1",
+    "openai": "^4.77.0"
+  }
+}
