@@ -280,6 +280,161 @@
                 bottom: 90px;
             }
         }
+
+        /* YouTube Agent page */
+        .yt-hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #282828 100%);
+            color: white;
+            padding: 60px 0 40px;
+        }
+        .yt-hero .yt-logo {
+            color: #ff0000;
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+        .yt-badge {
+            display: inline-block;
+            background: #ff0000;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+        .yt-chat-wrap {
+            background: #f5f5f5;
+            min-height: calc(100vh - 320px);
+            padding: 32px 0 60px;
+        }
+        .yt-chat-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+        .yt-chat-header {
+            background: #ff0000;
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .yt-chat-header h5 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .yt-chat-header .yt-sub {
+            font-size: 0.78rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+        #ytMessages {
+            height: 420px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #fafafa;
+        }
+        .yt-msg {
+            margin-bottom: 14px;
+            display: flex;
+        }
+        .yt-msg.user { justify-content: flex-end; }
+        .yt-msg .yt-bubble {
+            max-width: 82%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .yt-msg.user .yt-bubble {
+            background: #ff0000;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .yt-msg.assistant .yt-bubble {
+            background: white;
+            color: #1a1a1a;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 4px;
+        }
+        .yt-msg .yt-bubble .cursor {
+            display: inline-block;
+            width: 6px;
+            height: 14px;
+            background: #ff0000;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: chatBlink 1s steps(2) infinite;
+        }
+        .yt-input-area {
+            border-top: 1px solid #e8e8e8;
+            padding: 12px;
+            background: white;
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+        #ytInput {
+            flex: 1;
+            resize: none;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            max-height: 120px;
+            outline: none;
+        }
+        #ytInput:focus { border-color: #ff0000; }
+        #ytSend {
+            background: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+        #ytSend:hover { background: #cc0000; }
+        #ytSend:disabled { opacity: 0.45; cursor: not-allowed; }
+        .yt-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 14px 20px;
+            border-top: 1px solid #f0f0f0;
+            background: #fafafa;
+        }
+        .yt-chip {
+            background: #fff0f0;
+            border: 1px solid #ffcccc;
+            color: #cc0000;
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            white-space: nowrap;
+        }
+        .yt-chip:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -305,6 +460,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="showPage('contact')">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('youtube-agent')">
+                            <i class="bi bi-youtube me-1" style="color:#ff0000;"></i>YouTube Agent
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -721,6 +881,46 @@
                 </div>
             </div>
         </div>
+        <!-- YouTube Agent Page -->
+        <div id="youtube-agent" class="page">
+        <div class="yt-hero">
+            <div class="container text-center">
+                <div class="yt-logo"><i class="bi bi-youtube"></i></div>
+                <span class="yt-badge">Powered by Claude AI</span>
+                <h1 class="fw-bold mb-2">YouTube Content Agent</h1>
+                <p class="lead text-white-50" style="max-width:560px;margin:0 auto;">
+                    Generate video titles, descriptions, scripts, and channel strategy for your technical documentation content.
+                </p>
+            </div>
+        </div>
+        <div class="yt-chat-wrap">
+            <div class="container">
+                <div class="yt-chat-card">
+                    <div class="yt-chat-header">
+                        <i class="bi bi-robot" style="font-size:1.4rem;"></i>
+                        <div>
+                            <h5>YouTube Content Specialist</h5>
+                            <p class="yt-sub">Ask me about titles, descriptions, scripts &amp; strategy</p>
+                        </div>
+                    </div>
+                    <div id="ytMessages" aria-live="polite"></div>
+                    <div class="yt-chips" id="ytChips">
+                        <button class="yt-chip" data-prompt="Write 3 YouTube title ideas for a video showing how to write REST API documentation">API doc video titles</button>
+                        <button class="yt-chip" data-prompt="Create a YouTube description template for a tutorial video about writing user manuals">User manual description</button>
+                        <button class="yt-chip" data-prompt="Give me a content calendar for a technical documentation YouTube channel for the next month">Content calendar ideas</button>
+                        <button class="yt-chip" data-prompt="What are the best practices for screen recording software tutorial videos?">Screen recording tips</button>
+                        <button class="yt-chip" data-prompt="How do I optimize my documentation tutorial videos for YouTube search?">YouTube SEO for docs</button>
+                    </div>
+                    <form class="yt-input-area" id="ytForm">
+                        <textarea id="ytInput" rows="1" placeholder="Ask about video titles, scripts, channel strategy…" aria-label="YouTube agent message"></textarea>
+                        <button type="submit" id="ytSend" aria-label="Send message">
+                            <i class="bi bi-send-fill"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     </main>
 
     <!-- Footer -->
@@ -738,6 +938,7 @@
                         <li class="mb-2"><a href="#" class="text-light text-decoration-none" onclick="showPage('services')">Services</a></li>
                         <li class="mb-2"><a href="#" class="text-light text-decoration-none" onclick="showPage('products')">Products</a></li>
                         <li class="mb-2"><a href="#" class="text-light text-decoration-none" onclick="showPage('contact')">Contact</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none" onclick="showPage('youtube-agent')"><i class="bi bi-youtube me-1" style="color:#ff0000;"></i>YouTube Agent</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
@@ -980,6 +1181,140 @@
                     input.focus();
                 }
             });
+        })();
+        // YouTube Agent
+        (function() {
+            const messagesEl = document.getElementById('ytMessages');
+            const form = document.getElementById('ytForm');
+            const input = document.getElementById('ytInput');
+            const sendBtn = document.getElementById('ytSend');
+            const chips = document.getElementById('ytChips');
+
+            const history = [];
+            let firstOpen = true;
+            let sending = false;
+
+            function ensureWelcome() {
+                if (firstOpen) {
+                    firstOpen = false;
+                    addMessage('assistant', "Hi! I'm your YouTube Content Specialist. I can help you create compelling video titles, descriptions, scripts, and channel strategies for your technical documentation content. What are you working on?");
+                }
+            }
+
+            function addMessage(role, content) {
+                const wrap = document.createElement('div');
+                wrap.className = 'yt-msg ' + role;
+                const bubble = document.createElement('div');
+                bubble.className = 'yt-bubble';
+                bubble.textContent = content;
+                wrap.appendChild(bubble);
+                messagesEl.appendChild(wrap);
+                messagesEl.scrollTop = messagesEl.scrollHeight;
+                return bubble;
+            }
+
+            function autoResize() {
+                input.style.height = 'auto';
+                input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+            }
+            input.addEventListener('input', autoResize);
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    form.requestSubmit();
+                }
+            });
+
+            chips.addEventListener('click', (e) => {
+                const chip = e.target.closest('.yt-chip');
+                if (!chip || sending) return;
+                input.value = chip.dataset.prompt;
+                autoResize();
+                form.requestSubmit();
+            });
+
+            async function sendMessage(text) {
+                if (sending || !text) return;
+                sending = true;
+                sendBtn.disabled = true;
+
+                addMessage('user', text);
+                history.push({ role: 'user', content: text });
+                input.value = '';
+                autoResize();
+
+                const bubble = addMessage('assistant', '');
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor';
+                bubble.appendChild(cursor);
+
+                let assistantText = '';
+                try {
+                    const res = await fetch('/api/youtube-agent', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ messages: history }),
+                    });
+                    if (!res.ok || !res.body) throw new Error('Request failed: ' + res.status);
+
+                    const reader = res.body.getReader();
+                    const decoder = new TextDecoder();
+                    let buffer = '';
+
+                    while (true) {
+                        const { value, done } = await reader.read();
+                        if (done) break;
+                        buffer += decoder.decode(value, { stream: true });
+                        const parts = buffer.split('\n\n');
+                        buffer = parts.pop() || '';
+                        for (const part of parts) {
+                            const line = part.trim();
+                            if (!line.startsWith('data:')) continue;
+                            const data = line.slice(5).trim();
+                            if (data === '[DONE]') continue;
+                            try {
+                                const parsed = JSON.parse(data);
+                                if (parsed.error) throw new Error(parsed.error);
+                                if (parsed.delta) {
+                                    assistantText += parsed.delta;
+                                    bubble.textContent = assistantText;
+                                    bubble.appendChild(cursor);
+                                    messagesEl.scrollTop = messagesEl.scrollHeight;
+                                }
+                            } catch (_) {}
+                        }
+                    }
+                    cursor.remove();
+                    if (!assistantText) {
+                        bubble.textContent = "Sorry, I didn't get a response. Please try again.";
+                    } else {
+                        history.push({ role: 'assistant', content: assistantText });
+                    }
+                } catch (err) {
+                    cursor.remove();
+                    bubble.textContent = "Sorry, something went wrong. Please try again.";
+                } finally {
+                    sending = false;
+                    sendBtn.disabled = false;
+                    input.focus();
+                }
+            }
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const text = input.value.trim();
+                if (text) sendMessage(text);
+            });
+
+            // Show welcome message when page first becomes active
+            const observer = new MutationObserver(() => {
+                const page = document.getElementById('youtube-agent');
+                if (page && page.classList.contains('active')) {
+                    ensureWelcome();
+                }
+            });
+            const ytPage = document.getElementById('youtube-agent');
+            if (ytPage) observer.observe(ytPage, { attributes: true, attributeFilter: ['class'] });
         })();
     </script>
 </body>
